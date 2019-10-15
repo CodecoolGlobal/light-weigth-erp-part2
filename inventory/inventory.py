@@ -110,8 +110,26 @@ def get_available_items(table, year):
         list: list of lists (the inner list contains the whole row with their actual data types)
     """
 
-    # your code
+    # 1. Add year + durability = max durability
+    # 2. Compare max durability to year ( if max durability > or = to year)
 
+    release_year = 3
+    durability = 4
+    max_durability = 0
+    not_exceeded_max_durability = []
+    add = 0
+
+    for i in range(len(table)):
+        max_durability = int(table[i][release_year]) + int(table[i][durability])
+        table[i][release_year] = int(table[i][release_year])
+        table[i][durability] = int(table[i][durability])
+        if year <= int(max_durability):
+            not_exceeded_max_durability.append(table[i])
+        if year > int(max_durability):
+            break
+        max_durability = 0
+
+    return not_exceeded_max_durability
 
 def get_average_durability_by_manufacturers(table):
     """
@@ -124,4 +142,23 @@ def get_average_durability_by_manufacturers(table):
         dict: a dictionary with this structure: { [manufacturer] : [avg] }
     """
 
-    # your code
+    # 1. Calculate average durability
+    # 2. Record average durability for EACH manufacturer
+    # 3. Put it into a dictionary
+    
+    manufacturer = 2
+    durability = 4
+
+    max_durability = 0
+    average_durability = 0
+    adding_durability = 0
+    divider = 0
+
+    final_dictionary = {}
+
+
+    for i in range(len(table)):
+        final_dictionary[table[i][manufacturer]] = average_durability
+        if key in final_dictionary.items() == table[i][manufacturer]:
+            adding_durability += int(table[i][durability])
+            divider += 1
