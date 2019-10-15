@@ -229,8 +229,5 @@ def get_average_durability_by_manufacturers(table):
     for l in final_dictionary:
         final_dictionary[l]=int(final_dictionary[l])/int(dictionary_count[l])
     
-    print(final_dictionary)
     return(final_dictionary)
 
-a=data_manager.get_table_from_file("inventory/inventory_test.csv")
-get_average_durability_by_manufacturers(a)
