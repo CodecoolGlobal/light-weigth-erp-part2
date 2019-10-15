@@ -159,6 +159,37 @@ def get_average_durability_by_manufacturers(table):
 
     for i in range(len(table)):
         final_dictionary[table[i][manufacturer]] = average_durability
-        if key in final_dictionary.items() == table[i][manufacturer]:
-            adding_durability += int(table[i][durability])
-            divider += 1
+        if i > 1:
+            if table[i][manufacturer] in final_dictionary:
+                g = int(table[i][durability])
+                final_dictionary[table[i][manufacturer]] += g
+
+        for l in final_dictionary:
+            if table[i][manufacturer] == final_dictionary[l]:
+                adding_durability += int(table[i][durability])
+                divider += int(table[i][manufacturer])
+
+    dictionary_count={}
+    for l in final_dictionary:
+        dictionary_count[l]
+
+
+        for i in range(len(table)):
+            for l in final_dictionary:
+                if l==table[i][manufacturer]:
+                    dictionary_count[table[i][manufacturer]]+=1
+
+
+
+
+    
+
+    
+        
+
+
+
+
+a = data_manager.get_table_from_file("inventory.csv")
+get_average_durability_by_manufacturers(a)
+    
