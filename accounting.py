@@ -22,7 +22,6 @@ import common
 list_labels=["Month","Day","Year","in/out","Amount"]
 title="Accounting"
 
-
 def start_module():
     """
     Starts this module and displays its menu.

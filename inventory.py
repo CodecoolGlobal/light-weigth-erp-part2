@@ -17,7 +17,6 @@ import data_manager
 # common module
 import common
 
-list_labels=["Item name","Manufacturer","Purchase year","Durability"]
 
 def start_module():
     """
@@ -102,11 +101,8 @@ def add(table):
         list: Table with a new record
     """
 
-    list_to_add=ui.get_inputs(list_labels,"")
-    
-    list_to_add.insert(0,common.generate_random(table))
+    # your code
 
-    table.append(list_to_add)
     return table
 
 
@@ -121,16 +117,10 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-    count=0
-    searched_index=-1
-    for i in table:
-        if i[0]==id_:
-            searched_index=count
-        count+=1
-    table.pop(searched_index)
-    
-    return table
 
+    # your code
+
+    return table
 
 
 def update(table, id_):
@@ -145,16 +135,7 @@ def update(table, id_):
         list: table with updated record
     """
 
-    count=0
-    searched_index=-1
-    for i in table:
-        if i[0]==id_:
-            searched_index=count
-        count+=1
-    
-    to_change=ui.get_inputs(list_labels,title)
-    to_change.insert(0,common.generate_random(table))
-    table[searched_index]=to_change
+    # your code
 
     return table
 
@@ -196,16 +177,6 @@ def get_available_items(table, year):
     return not_exceeded_max_durability
 
 
-    not_exceeded_max_durability = []
-
-
-    for i in range(len(table)):
-        max_durability = table[i][release_year] + table[i][durability]
-        if year <= max_durability:
-            not_exceeded_max_durability.append(table[i][name_of_console])
-
-a = data_manager.get_table_from_file("inventory.csv")
-get_available_items(a, 2011)
 
 def get_average_durability_by_manufacturers(table):
     """
@@ -233,6 +204,18 @@ def get_average_durability_by_manufacturers(table):
             final_dictionary[table[i][manufacturer]]+=int(table[i][durability])
         else:
             final_dictionary[table[i][manufacturer]]=int(table[i][durability])
+        
+
+    '''final_dictionary[table[i][manufacturer]] = average_durability
+        
+            if table[i][manufacturer] in final_dictionary:
+                g = int(table[i][durability])
+                final_dictionary[table[i][manufacturer]] += g
+
+        for l in final_dictionary:
+            if table[i][manufacturer] == final_dictionary[l]:
+                adding_durability += int(table[i][durability])
+                divider += int(table[i][manufacturer])'''
 
     dictionary_count={}
     for l in final_dictionary:
@@ -247,3 +230,4 @@ def get_average_durability_by_manufacturers(table):
         final_dictionary[l]=int(final_dictionary[l])/int(dictionary_count[l])
     
     return(final_dictionary)
+

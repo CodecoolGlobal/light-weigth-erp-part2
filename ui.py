@@ -1,5 +1,7 @@
 """ User Interface (UI) module """
-
+list_options = ["(1) Store manager","(2) Human resources manager","(3) Inventory manager",
+    "(4) Accounting manager","(5) Sales manager","(6) Customer relationship management (CRM)",
+    "(0) Exit program"]
 
 def print_table(table, title_list):
     """
