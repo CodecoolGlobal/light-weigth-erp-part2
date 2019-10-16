@@ -19,7 +19,7 @@ import data_manager
 import common
 
 
-def start_module():
+def start_module(): # nem a MAIN MENU, ez csak az ACCOUNTING (part of it)!
     """
     Starts this module and displays its menu.
      * User can access default special features from here.
@@ -28,8 +28,7 @@ def start_module():
     Returns:
         None
     """
-
-    # you code
+   
 
 
 def show_table(table):
@@ -42,8 +41,8 @@ def show_table(table):
     Returns:
         None
     """
-
-    # your code
+    display_table = data_manager.get_table_form_file("items.csv")
+    print(display_table)
 
 
 def add(table):

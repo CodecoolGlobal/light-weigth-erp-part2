@@ -110,8 +110,23 @@ def get_available_items(table, year):
         list: list of lists (the inner list contains the whole row with their actual data types)
     """
 
-    # your code
+    # 1. Add year + durability = max durability
+    # 2. Compare max durability to year ( if max durability > or = to year)
 
+    name_of_console = 1
+    release_year = 3
+    durability = 4
+
+    not_exceeded_max_durability = []
+
+
+    for i in range(len(table)):
+        max_durability = table[i][release_year] + table[i][durability]
+        if year <= max_durability:
+            not_exceeded_max_durability.append(table[i][name_of_console])
+
+a = data_manager.get_table_from_file("inventory.csv")
+get_available_items(a, 2011)
 
 def get_average_durability_by_manufacturers(table):
     """

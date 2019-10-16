@@ -141,8 +141,6 @@ def which_year_max(table):
     
 
 
-a = data_manager.get_table_from_file("items.csv")
-which_year_max(a)
 
 def avg_amount(table, year):
     """
