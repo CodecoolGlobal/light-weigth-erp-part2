@@ -130,8 +130,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     Returns:
         list: list of lists (the filtered table)
     """
-
-    result=[]
+   result=[]
     for i in range(len(table)):
         if((int(table[i][year])>int(year_from)) and (int(table[i][year])<int(year_to))):
             result.append(table[i])
@@ -145,6 +144,3 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
                     result.append(table[i])
 
     return result
-
-a = data_manager.get_table_from_file("sales.csv")
-get_items_sold_between(a, 2, 12, 2016, 7, 6, 2016)
