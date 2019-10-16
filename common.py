@@ -3,7 +3,9 @@ implement commonly used functions here
 """
 
 import random
-
+import ui
+import data_manager
+import os
 
 def generate_random(table):
     """
@@ -18,8 +20,29 @@ def generate_random(table):
         string: Random and unique string
     """
 
-    generated = ''
+    statement=True
+    while statement:
+        char_list=[]
+        generated =[]
+        char_list.append("'\"+!%/=()\|€÷×[]$<>#&@{},?.:-*")
+        char_list.append("0123456789")
+        char_list.append("qwertzuiopasdfghjklíyxcvbnm")
+        char_list.append("qwertzuiopasdfghjklíyxcvbnm".upper())
+        count=0
+        for i in range(len(char_list)):
+            while count<2:
+                generated.append(random.choice(char_list[i]))
+                count+=1
+            count=0
 
-    # your code
+        random.shuffle(generated)
+        
+        generated="".join(generated)
+        for i in table:
+            if not(generated in i):
+                statement=False
 
     return generated
+
+def clear():
+    os.system("clear")

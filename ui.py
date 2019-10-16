@@ -21,9 +21,48 @@ def print_table(table, title_list):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
+    list_of_nametags=[]
+    for i in table[0]:
+        list_of_nametags.append(len(i))
 
-    # your goes code
+    for i in range(len(table)):
+        for j in range(len(table[i])):
+            for k in range(len(table)):
+                if len(table[k][j])>list_of_nametags[j]:
+                    list_of_nametags[j]=len(table[k][j])
 
+    for i in range(len(list_of_nametags)):
+        if list_of_nametags[i]<len(title_list[i]):
+            list_of_nametags[i]=len(title_list[i])
+
+
+    sum_spaces=0
+    for i in range(len(list_of_nametags)):
+        sum_spaces+=list_of_nametags[i]+2+1
+    
+
+    print("/"+(sum_spaces*"-")+"\\")
+    print(" |",end="")
+    for i in range(len(title_list)):
+        to_size=list_of_nametags[i]
+        print("{0:^{1}}".format(title_list[i],to_size),end="")
+        print(" | ",end="")
+    print()
+    print(" |"+((sum_spaces-2)*"-")+"|")
+
+
+    print(" |",end="")
+    for i in range(len(table)):
+        for j in range(len(table[i])):
+            to_size=list_of_nametags[j]
+            print("{0:^{1}}".format(table[i][j],to_size),end="")
+            print(" | ",end="")
+        print()
+        
+        if i<len(table)-1:
+            print(" |"+((sum_spaces-2)*"-")+"|")
+            print(" |",end="")
+    print("\\"+(sum_spaces*"-")+"/")
 
 def print_result(result, label):
     """
@@ -36,8 +75,8 @@ def print_result(result, label):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    # your code
+    
+    print(label,result)
 
 
 def print_menu(title, list_options, exit_message):
@@ -60,8 +99,12 @@ def print_menu(title, list_options, exit_message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    # your code
+    count=1
+    print("\t"+"\t",title)
+    for i in list_options:
+        char_c=str(count)
+        print("("+char_c+")",i)
+        count+=1
 
 
 def get_inputs(list_labels, title):
@@ -83,9 +126,12 @@ def get_inputs(list_labels, title):
         list: List of data given by the user. Sample return:
             [<user_input_1>, <user_input_2>, <user_input_3>]
     """
-    inputs = []
 
-    # your code
+
+    inputs = []
+    for i in range(len(list_labels)): 
+        a=input("{} {}: " .format(title,list_labels[i]))
+        inputs.append(a)
 
     return inputs
 
@@ -102,3 +148,4 @@ def print_error_message(message):
     """
 
     # your code
+    print("ERROR: ",message)
