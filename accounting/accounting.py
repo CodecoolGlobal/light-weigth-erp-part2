@@ -28,7 +28,54 @@ def start_module(): # nem a MAIN MENU, ez csak az ACCOUNTING (part of it)!
     Returns:
         None
     """
-   
+    common.clear()
+    special_functions=["Show table",
+    "Add elements",
+    "Remove element by it's ID",
+    "Update an element",
+    "Get which year has the highest profit",
+    "Get what is the average profit in a given year?",
+    "Go back to main menu"]
+
+    table=data_manager.get_table_from_file("accounting/items_test.csv")
+    ui.print_menu("Accounting manager MENU",special_functions,"")
+    choice=ui.get_inputs(" ","What's your choose")
+    
+
+    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
+        show_table(table)
+
+    elif int(choice[0])==2: #add
+        add(table)
+        data_manager.write_table_to_file("accounting/items_test.csv",table)
+
+    elif int(choice[0])==3: #remove
+        id=ui.get_inputs(" ","Add the ID")
+        id=id[0]
+        remove(table,id)
+        data_manager.write_table_to_file("accounting/items_test.csv",table)
+
+    elif int(choice[0])==4: #update
+        id=ui.get_inputs(" ","Add the ID")
+        id=id[0]
+        update(table,id)
+        data_manager.write_table_to_file("accounting/items_test.csv",table)
+
+    elif int(choice[0])==5: #max
+        ui.print_result(which_year_max(table),"The max year: ")
+
+    elif int(choice[0])==6: #avg
+        year=ui.get_inputs(" ","Add the year")
+        year=year[0]
+        result=avg_amount(table,year)
+        if result!=None:
+            ui.print_result(result,"The average in {0}: ".format(year))
+
+    elif int(choice[0])==7: #main
+        common.clear()
+
+    else:
+        raise ValueError
 
 
 def show_table(table):
@@ -44,6 +91,7 @@ def show_table(table):
     display_table = data_manager.get_table_form_file("items.csv")
     print(display_table)
 
+    ui.print_table(table,["ID","Count1","Count2","Date","in/out","Sold"])
 
 def add(table):
     """
@@ -56,8 +104,11 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
+    list_to_add=ui.get_inputs(list_labels,"Accounting")
+    
+    list_to_add.insert(0,common.generate_random(table))
 
+    table.append(list_to_add)
     return table
 
 
@@ -72,9 +123,15 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-
-    # your code
-
+                        #id_ is a list that contains one attribute
+    count=0
+    searched_index=-1
+    for i in table:
+        if i[0]==id_:
+            searched_index=count
+        count+=1
+    table.pop(searched_index)
+    
     return table
 
 
@@ -90,7 +147,16 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    count=0
+    searched_index=-1
+    for i in table:
+        if i[0]==id_:
+            searched_index=count
+        count+=1
+    
+    to_change=ui.get_inputs(list_labels,title)
+    to_change.insert(0,common.generate_random(table))
+    table[searched_index]=to_change
 
     return table
 
@@ -109,7 +175,40 @@ def which_year_max(table):
         number
     """
 
-    # your code
+    income = 0
+    spending = 0
+    year_in_file = 3
+    money_in_or_out = 4
+    amount_of_money_in_or_out = 5
+    
+    year_and_its_profits = {}
+    
+    profit_list = []
+    profit = 0
+
+    for i in range(len(table)):
+        year_and_its_profits[table[i][year_in_file]] = profit
+        for j in year_and_its_profits:
+            if table[i][money_in_or_out] == "in" and table[i][year_in_file] == j:
+                profit += int(table[i][amount_of_money_in_or_out])
+                year_and_its_profits[j] = profit
+            
+            elif table[i][money_in_or_out] == "out" and table[i][year_in_file] == j:
+                profit -= int(table[i][amount_of_money_in_or_out])
+                year_and_its_profits[j] = profit
+
+            else:
+                pass
+
+    max = -99999999
+    for key in year_and_its_profits:
+        if year_and_its_profits[key] > max:
+            max = year_and_its_profits[key]
+
+    for key in year_and_its_profits:
+        if year_and_its_profits[key]==max:
+            return int(key)
+                        
 
 
 def avg_amount(table, year):
@@ -123,5 +222,29 @@ def avg_amount(table, year):
     Returns:
         number
     """
+    average_profit = 0
+    profit = 0
+    income = 0
+    spending = 0
 
-    # your code
+    year_in_file = 3
+    money_in_or_out = 4
+    amount_of_money_in_or_out = 5
+    items_count = 0
+
+    for i in range(len(table)):
+        if int(table[i][year_in_file]) == int(year):
+            if table[i][money_in_or_out] == "in":
+                income += int(table[i][amount_of_money_in_or_out])
+
+            elif table[i][money_in_or_out] == "out":
+                spending += int(table[i][amount_of_money_in_or_out])
+            items_count += 1
+
+    if items_count==0:
+        ui.print_error_message("Nothing found in this year.")
+    else:
+        profit = income - spending
+        average_profit = profit/items_count
+        return average_profit
+

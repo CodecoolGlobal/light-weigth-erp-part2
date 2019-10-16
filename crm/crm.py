@@ -108,12 +108,26 @@ def get_longest_name_id(table):
             string: id of the longest name (if there are more than one, return
                 the last by alphabetical order of the names)
         """
+    # 1. find customer with longest name
+    # 2. record ID of customer with longest name
+    # 3. Alphabetical order
 
-    # your code
+    id = 0
+    name = 1
+
+    max_name_length = 0
+    ID_of_longest_name = ""
+
+    for i in range(len(table)):
+        if len(table[i][name]) > max_name_length:
+        max_name_length = len(table[i][name])
+        ID_of_longest_name = table[i][id]
+    
+
+a = data_manager.get_table_from_file("customers.csv")
+get_longest_name_id(a)
 
 
-# the question: Which customers has subscribed to the newsletter?
-# return type: list of strings (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
     """
         Question: Which customers has subscribed to the newsletter?
@@ -124,5 +138,8 @@ def get_subscribed_emails(table):
         Returns:
             list: list of strings (where a string is like "email;name")
         """
+
+        # the question: Which customers has subscribed to the newsletter?
+        # return type: list of strings (where string is like email+separator+name, separator=";")
 
     # your code

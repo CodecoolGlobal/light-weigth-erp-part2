@@ -27,8 +27,54 @@ def start_module():
     Returns:
         None
     """
+    common.clear()
+    special_functions=["Show table",
+    "Add elements",
+    "Remove element by it's ID",
+    "Update an element",
+    "Get which items have not exceeded their durability yet",
+    "Get the average durability times for each manufacturer",
+    "Go back to main menu"]
 
-    # your code
+    table=data_manager.get_table_from_file("inventory/inventory_test.csv")
+    ui.print_menu("Human resources manager MENU",special_functions,"")
+    choice=ui.get_inputs(" ","What's your choose")
+    
+
+    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
+        show_table(table)
+
+    elif int(choice[0])==2: #add
+        add(table)
+        data_manager.write_table_to_file("inventory/inventory_test.csv",table)
+
+    elif int(choice[0])==3: #remove
+        id=ui.get_inputs(" ","Add the ID")
+        id=id[0]
+        remove(table,id)
+        data_manager.write_table_to_file("inventory/inventory_test.csv",table)
+
+    elif int(choice[0])==4: #update
+        id=ui.get_inputs(" ","Add the ID")
+        id=id[0]
+        update(table,id)
+        data_manager.write_table_to_file("inventory/inventory_test.csv",table)
+
+    elif int(choice[0])==5: #exceeded
+        year=ui.get_inputs(" ","Give the year: ")
+        year=int(year[0])
+        ui.print_result(get_available_items(table,year)," ")
+
+    elif int(choice[0])==6: #manufactures avg
+        result=get_average_durability_by_manufacturers(table)
+        ui.print_result(result,"")
+
+    elif int(choice[0])==7: #main
+        common.clear()
+
+    else:
+        raise ValueError
+   
 
 
 def show_table(table):
@@ -41,8 +87,7 @@ def show_table(table):
     Returns:
         None
     """
-
-    # your code
+    ui.print_table(table,["ID","Item name","Manufacturer","Purchase year","Durability"])
 
 
 def add(table):
@@ -131,6 +176,8 @@ def get_available_items(table, year):
 
     return not_exceeded_max_durability
 
+
+
 def get_average_durability_by_manufacturers(table):
     """
     Question: What are the average durability times for each manufacturer?
@@ -149,16 +196,38 @@ def get_average_durability_by_manufacturers(table):
     manufacturer = 2
     durability = 4
 
-    max_durability = 0
-    average_durability = 0
-    adding_durability = 0
-    divider = 0
-
     final_dictionary = {}
 
 
     for i in range(len(table)):
-        final_dictionary[table[i][manufacturer]] = average_durability
-        if key in final_dictionary.items() == table[i][manufacturer]:
-            adding_durability += int(table[i][durability])
-            divider += 1
+        if table[i][manufacturer] in final_dictionary:
+            final_dictionary[table[i][manufacturer]]+=int(table[i][durability])
+        else:
+            final_dictionary[table[i][manufacturer]]=int(table[i][durability])
+        
+
+    '''final_dictionary[table[i][manufacturer]] = average_durability
+        
+            if table[i][manufacturer] in final_dictionary:
+                g = int(table[i][durability])
+                final_dictionary[table[i][manufacturer]] += g
+
+        for l in final_dictionary:
+            if table[i][manufacturer] == final_dictionary[l]:
+                adding_durability += int(table[i][durability])
+                divider += int(table[i][manufacturer])'''
+
+    dictionary_count={}
+    for l in final_dictionary:
+        dictionary_count[l]=0
+
+    for i in range(len(table)):
+        for l in dictionary_count:
+            if l==table[i][manufacturer]:
+                dictionary_count[table[i][manufacturer]]+=1
+    
+    for l in final_dictionary:
+        final_dictionary[l]=int(final_dictionary[l])/int(dictionary_count[l])
+    
+    return(final_dictionary)
+
