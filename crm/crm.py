@@ -16,6 +16,8 @@ import data_manager
 # common module
 import common
 
+list_labels=["Name","e-mail","Subscribed"]
+
 
 def start_module():
     """
@@ -26,8 +28,51 @@ def start_module():
     Returns:
         None
     """
+    common.clear()
+    special_functions=["Show table",
+    "Add elements",
+    "Remove element by it's ID",
+    "Update an element by it's ID",
+    "Get longest name ID",
+    "Get subscribed e-mails",
+    "Go back to main menu"]
 
-    # your code
+    table=data_manager.get_table_from_file("crm/customers_test.csv")
+    ui.print_menu("Customer Relationship Management MENU",special_functions,"")
+    choice=ui.get_inputs(" ","What's your choose")
+    
+
+    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
+        show_table(table)
+
+    elif int(choice[0])==2: #add
+        add(table)
+        data_manager.write_table_to_file("crm/customers_test.csv",table)
+
+    elif int(choice[0])==3: #remove
+        id=ui.get_inputs(" ","Add the searched ID")
+        id=id[0]
+        remove(table,id)
+        data_manager.write_table_to_file("crm/customers_test.csv",table)
+
+    elif int(choice[0])==4: #update
+        id=ui.get_inputs(" ","Add the searched ID")
+        id=id[0]
+        update(table,id)
+        data_manager.write_table_to_file("crm/customers_test.csv",table)
+
+    elif int(choice[0])==5: #ID cust
+        ui.print_result(get_longest_name_id(table),"The ID of the customer is:")
+
+    elif int(choice[0])==6: #subscribed
+        result=get_subscribed_emails(table)
+        ui.print_result(result,"These customers have subscribed to the news letter:")
+
+    elif int(choice[0])==7: #main
+        common.clear()
+
+    else:
+        raise ValueError
 
 
 def show_table(table):
@@ -41,7 +86,7 @@ def show_table(table):
         None
     """
 
-    # your code
+    ui.print_table(table,["ID","Name","e-mail","Subscribed"])
 
 
 def add(table):
@@ -55,8 +100,11 @@ def add(table):
         list: Table with a new record
     """
 
-    # your code
+    list_to_add=ui.get_inputs(list_labels,"")
+    
+    list_to_add.insert(0,common.generate_random(table))
 
+    table.append(list_to_add)
     return table
 
 
@@ -72,8 +120,14 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    # your code
-
+    count=0
+    searched_index=-1
+    for i in table:
+        if i[0]==id_:
+            searched_index=count
+        count+=1
+    table.pop(searched_index)
+    
     return table
 
 
@@ -89,9 +143,21 @@ def update(table, id_):
         list: table with updated record
     """
 
-    # your code
+    count=0
+    searched_index=-1
+    for i in table:
+        if i[0]==id_:
+            searched_index=count
+        count+=1
+    
+    if searched_index!=-1:
+        to_change=ui.get_inputs(list_labels,"")
+        to_change.insert(0,common.generate_random(table))
+        table[searched_index]=to_change
 
-    return table
+        return table
+    else:
+        raise ValueError
 
 
 # special functions:

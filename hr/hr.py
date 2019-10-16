@@ -39,7 +39,7 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("hr/persons_test.csv")
-    ui.print_menu("Human resources manager MENU",special_functions,"")
+    ui.print_menu("Human Resources Manager MENU",special_functions,"")
     choice=ui.get_inputs(" ","What's your choose")
     
 
@@ -51,26 +51,23 @@ def start_module():
         data_manager.write_table_to_file("hr/persons_test.csv",table)
 
     elif int(choice[0])==3: #remove
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("hr/persons_test.csv",table)
 
     elif int(choice[0])==4: #update
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("hr/persons_test.csv",table)
 
     elif int(choice[0])==5: #oldest
-        ui.print_result(which_year_max(table),"The max year: ")
+        ui.print_result(get_oldest_person(table),"The oldest persons are:")
 
     elif int(choice[0])==6: #closest to avg
-        year=ui.get_inputs(" ","Add the year")
-        year=year[0]
         result=avg_amount(table,year)
-        if result!=None:
-            ui.print_result(result,"The average in {0}: ".format(year))
+        ui.print_result(result,"The person closest to average is:")
 
     elif int(choice[0])==7: #main
         common.clear()
@@ -154,7 +151,7 @@ def update(table, id_):
             searched_index=count
         count+=1
     
-    to_change=ui.get_inputs(list_labels,title)
+    to_change=ui.get_inputs(list_labels,"")
     to_change.insert(0,common.generate_random(table))
     table[searched_index]=to_change
 

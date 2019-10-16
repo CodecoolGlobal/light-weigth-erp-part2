@@ -20,7 +20,8 @@ import common
 
 
 
-list_labels=["Month of the transaction","Day of the transaction","Year of the transaction","in/out","Amount of transaction"]
+list_labels=["Month of the transaction","Day of the transaction",
+"Year of the transaction","in/out","Amount of transaction"]
 
 
 
@@ -43,7 +44,7 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("accounting/items_test.csv")
-    ui.print_menu("Accounting manager MENU",special_functions,"")
+    ui.print_menu("Accounting Manager MENU",special_functions,"")
     choice=ui.get_inputs(" ","What's your choose")
     
 
@@ -55,26 +56,26 @@ def start_module():
         data_manager.write_table_to_file("accounting/items_test.csv",table)
 
     elif int(choice[0])==3: #remove
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("accounting/items_test.csv",table)
 
     elif int(choice[0])==4: #update
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("accounting/items_test.csv",table)
 
     elif int(choice[0])==5: #max
-        ui.print_result(which_year_max(table),"The max year: ")
+        ui.print_result(which_year_max(table),"The max profit's year: ")
 
     elif int(choice[0])==6: #avg
         year=ui.get_inputs(" ","Add the year")
         year=year[0]
         result=avg_amount(table,year)
         if result!=None:
-            ui.print_result(result,"The average in {0}: ".format(year))
+            ui.print_result(result,"The average profit in {0} is: ".format(year))
 
     elif int(choice[0])==7: #main
         common.clear()
@@ -106,7 +107,7 @@ def add(table):
         list: Table with a new record
     """
 
-    list_to_add=ui.get_inputs(list_labels,"Accounting")
+    list_to_add=ui.get_inputs(list_labels,"")
     
     list_to_add.insert(0,common.generate_random(table))
 
@@ -156,7 +157,7 @@ def update(table, id_):
             searched_index=count
         count+=1
     
-    to_change=ui.get_inputs(list_labels,title)
+    to_change=ui.get_inputs(list_labels,"")
     to_change.insert(0,common.generate_random(table))
     table[searched_index]=to_change
 

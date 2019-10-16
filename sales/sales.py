@@ -46,7 +46,7 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("sales/sales_test.csv")
-    ui.print_menu("Accounting manager MENU",special_functions,"")
+    ui.print_menu("Sales Manager MENU",special_functions,"")
     choice=ui.get_inputs(" ","What's your choose")
     
 
@@ -58,19 +58,19 @@ def start_module():
         data_manager.write_table_to_file("sales/sales_test.csv",table)
 
     elif int(choice[0])==3: #remove
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("sales/sales_test.csv",table)
 
     elif int(choice[0])==4: #update
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("sales/sales_test.csv",table)
 
     elif int(choice[0])==5: #lowest price item id
-        ui.print_result(get_lowest_price_item_id(table),"")
+        ui.print_result(get_lowest_price_item_id(table),"The ID of the item that was sold for the lowest price is:")
 
     elif int(choice[0])==6: #avg
         list=["day","month","year"]
@@ -85,7 +85,7 @@ def start_module():
         result=get_items_sold_between(table,date1[0][0],
         date1[1][0],date1[2][0],date2[0][0],date2[1][0],date2[2][0])
 
-        ui.print_result(result,"")
+        ui.print_result(result,"These items are sold between the given dates:")
 
     elif int(choice[0])==7: #main
         common.clear()
@@ -168,7 +168,7 @@ def update(table, id_):
             searched_index=count
         count+=1
     
-    to_change=ui.get_inputs(list_labels,title)
+    to_change=ui.get_inputs(list_labels,"")
     to_change.insert(0,common.generate_random(table))
     table[searched_index]=to_change
 

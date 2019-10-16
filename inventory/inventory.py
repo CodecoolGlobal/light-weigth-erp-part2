@@ -38,7 +38,7 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("inventory/inventory_test.csv")
-    ui.print_menu("Human resources manager MENU",special_functions,"")
+    ui.print_menu("Inventory Manager MENU",special_functions,"")
     choice=ui.get_inputs(" ","What's your choose")
     
 
@@ -50,13 +50,13 @@ def start_module():
         data_manager.write_table_to_file("inventory/inventory_test.csv",table)
 
     elif int(choice[0])==3: #remove
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("inventory/inventory_test.csv",table)
 
     elif int(choice[0])==4: #update
-        id=ui.get_inputs(" ","Add the ID")
+        id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("inventory/inventory_test.csv",table)
@@ -64,11 +64,11 @@ def start_module():
     elif int(choice[0])==5: #exceeded
         year=ui.get_inputs(" ","Give the year: ")
         year=int(year[0])
-        ui.print_result(get_available_items(table,year)," ")
+        ui.print_result(get_available_items(table,year),"These items that not exceeded their durability yet:")
 
     elif int(choice[0])==6: #manufactures avg
         result=get_average_durability_by_manufacturers(table)
-        ui.print_result(result,"")
+        ui.print_result(result,"The average durability times for each manufaturer is:")
 
     elif int(choice[0])==7: #main
         common.clear()
@@ -152,7 +152,7 @@ def update(table, id_):
             searched_index=count
         count+=1
     
-    to_change=ui.get_inputs(list_labels,title)
+    to_change=ui.get_inputs(list_labels,"")
     to_change.insert(0,common.generate_random(table))
     table[searched_index]=to_change
 
