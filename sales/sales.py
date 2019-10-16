@@ -20,6 +20,13 @@ import common
 
 list_labels=["Title","Price","Month","Day","Year"]
 
+id=0
+title=1
+price=2
+month=3
+day=4
+year=5
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -34,8 +41,8 @@ def start_module():
     "Add elements",
     "Remove element by it's ID",
     "Update an element",
-    "Get ",
-    "Get ",
+    "Get lowest price ID",
+    "Get items sold between two dates",
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("sales/sales_test.csv")
@@ -62,15 +69,23 @@ def start_module():
         update(table,id)
         data_manager.write_table_to_file("sales/sales_test.csv",table)
 
-    elif int(choice[0])==5: #max
-        ui.print_result(which_year_max(table),"The max year: ")
+    elif int(choice[0])==5: #lowest price item id
+        ui.print_result(get_lowest_price_item_id(table),"")
 
     elif int(choice[0])==6: #avg
-        year=ui.get_inputs(" ","Add the year")
-        year=year[0]
-        result=avg_amount(table,year)
-        if result!=None:
-            ui.print_result(result,"The average in {0}: ".format(year))
+        list=["day","month","year"]
+        date1=[]
+        date2=[]
+        for i in range(3):
+            date1.append(ui.get_inputs(" ","Add the first date's {}".format(list[i])))
+
+        for i in range(3):
+            date2.append(ui.get_inputs(" ","Add the second date's {}".format(list[i])))
+
+        result=get_items_sold_between(table,date1[0][0],
+        date1[1][0],date1[2][0],date2[0][0],date2[1][0],date2[2][0])
+
+        ui.print_result(result,"")
 
     elif int(choice[0])==7: #main
         common.clear()
@@ -175,7 +190,16 @@ def get_lowest_price_item_id(table):
          string: id
     """
 
-    # your code
+    lowest_price=int(table[0][price])
+    lowest_price_id=table[0][id]
+    for i in range(len(table)):
+        if int(table[i][price])<int(lowest_price):
+            lowest_price=table[i][price]
+            lowest_price_id=table[i][id]
+
+    return lowest_price_id
+
+    
 
 
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
@@ -195,4 +219,23 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         list: list of lists (the filtered table)
     """
 
-    # your code
+    result=[]
+    for i in range(len(table)):
+        if((int(table[i][year])>int(year_from)) and (int(table[i][year])<int(year_to))):
+            result.append(table[i])
+
+        elif ((int(table[i][year])==int(year_from)) or (int(table[i][year])==int(year_to))):
+            if((int(table[i][month])>int(month_from)) and (int(table[i][month])<int(month_to))):
+                result.append(table[i])
+
+            elif((int(table[i][month])==int(month_from)) or (int(table[i][month])==int(month_to))):
+                if((int(table[i][day])>int(day_from)) and (int(table[i][day])<int(day_to))):
+                    result.append(table[i])
+
+    for i in range(len(result)):
+        result[i][price]=int(result[i][price])
+        result[i][day]=int(result[i][day])
+        result[i][month]=int(result[i][month])
+        result[i][year]=int(result[i][year])
+
+    return result

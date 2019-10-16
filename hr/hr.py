@@ -174,9 +174,22 @@ def get_oldest_person(table):
     Returns:
         list: A list of strings (name or names if there are two more with the same value)
     """
+    oldest_date = 999999999
 
-    # your code
+    born_year = 2
+    name_of_person = 1
 
+    list_of_oldest_persons_results = []
+
+
+    for i in range(len(table)):
+        if int(table[i][born_year]) < int(oldest_date):
+            oldest_date = int(table[i][born_year])            
+        if i > 0:
+            if int(table[i][born_year]) == int(oldest_date):
+                list_of_oldest_persons_results.append(str(table[i][name_of_person]))
+
+    return list_of_oldest_persons_results
 
 def get_persons_closest_to_average(table):
     """
@@ -188,5 +201,30 @@ def get_persons_closest_to_average(table):
     Returns:
         list: list of strings (name or names if there are two more with the same value)
     """
+    # 1. calculate average age
+    # 2. compare who is the closest to the average
+    # 3. record their names in a "results" list
+    
+    born_year = 2
+    name_of_person = 1
 
-    # your code
+    overall = 0
+    average_age = 0 #1973.1
+    divider = 0
+    list_of_persons_closest_to_average_results = []
+
+    min = 999999999999
+    for i in range(len(table)):
+        years_in_table = int(table[i][born_year])
+        overall += years_in_table
+        divider += 1
+    average_age = overall/divider
+
+    for l in range(len(table)):
+        comparing_value = abs((float(table[l][born_year]))-average_age)
+        if min > comparing_value:
+            min = comparing_value
+            if l > 0:
+                list_of_persons_closest_to_average_results.append(table[l][name_of_person])
+        
+    return list_of_persons_closest_to_average_results

@@ -33,12 +33,12 @@ def start_module():
     "Add elements",
     "Remove element by it's ID",
     "Update an element",
-    "Get ",
-    "Get ",
+    "Get counts by manufacturer",
+    "Get averege products",
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("store/games_test.csv")
-    ui.print_menu("Accounting manager MENU",special_functions,"")
+    ui.print_menu("Store MENU",special_functions,"")
     choice=ui.get_inputs(" ","What's your choose")
     
 
@@ -61,15 +61,13 @@ def start_module():
         update(table,id)
         data_manager.write_table_to_file("store/games_test.csv",table)
 
-    elif int(choice[0])==5: #max
-        ui.print_result(which_year_max(table),"The max year: ")
+    elif int(choice[0])==5: #counts
+        ui.print_result(get_counts_by_manufacturers(table),"")
 
-    elif int(choice[0])==6: #avg
-        year=ui.get_inputs(" ","Add the year")
-        year=year[0]
-        result=avg_amount(table,year)
-        if result!=None:
-            ui.print_result(result,"The average in {0}: ".format(year))
+    elif int(choice[0])==6: #avg by manufac
+        manufacturer=ui.get_inputs(" ","Add the manufacturer")
+        manufacturer=manufacturer[0]
+        ui.print_result(get_average_by_manufacturer(table,manufacturer),"")
 
     elif int(choice[0])==7: #main
         common.clear()
@@ -173,7 +171,20 @@ def get_counts_by_manufacturers(table):
          dict: A dictionary with this structure: { [manufacturer] : [count] }
     """
 
-    # your code
+    manufacturer=2
+
+    dictionary={}
+
+    for i in range(len(table)):
+        dictionary[table[i][manufacturer]]=0
+
+
+    for i in range(len(table)):
+        for j in dictionary:
+            if table[i][manufacturer]==j:
+                dictionary[j]+=1
+
+    return dictionary
 
 
 def get_average_by_manufacturer(table, manufacturer):
@@ -187,5 +198,20 @@ def get_average_by_manufacturer(table, manufacturer):
     Returns:
          number
     """
+    stock=4
+    manufac=2
 
-    # your code
+    avg=0
+    count=0
+
+    for i in range(len(table)):
+        if table[i][manufac]==manufacturer:
+            avg+=int(table[i][stock])
+            count+=1
+    
+    if count!=0:
+        avg=avg/count
+        return avg
+
+    else:
+        raise ValueError 
