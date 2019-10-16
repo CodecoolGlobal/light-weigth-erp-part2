@@ -249,4 +249,3 @@ def avg_amount(table, year):
         profit = income - spending
         average_profit = profit/items_count
         return average_profit
-
