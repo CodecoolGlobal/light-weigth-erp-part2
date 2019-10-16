@@ -204,8 +204,7 @@ def get_available_items(table, year):
         if year <= max_durability:
             not_exceeded_max_durability.append(table[i][name_of_console])
 
-a = data_manager.get_table_from_file("inventory.csv")
-get_available_items(a, 2011)
+    return not_exceeded_max_durability
 
 def get_average_durability_by_manufacturers(table):
     """
@@ -246,4 +245,4 @@ def get_average_durability_by_manufacturers(table):
     for l in final_dictionary:
         final_dictionary[l]=int(final_dictionary[l])/int(dictionary_count[l])
     
-    return(final_dictionary)
+    return final_dictionary

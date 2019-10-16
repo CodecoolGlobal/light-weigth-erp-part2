@@ -16,7 +16,6 @@ import data_manager
 # common module
 import common
 
-list_labels=["Name","e-mail","Subscribed"]
 
 def start_module():
     """
@@ -27,54 +26,8 @@ def start_module():
     Returns:
         None
     """
-    common.clear()
-    special_functions=["Show table",
-    "Add elements",
-    "Remove element by it's ID",
-    "Update an element",
-    "Get longest name ID",
-    "Get subscribed e-mails",
-    "Go back to main menu"]
 
-    table=data_manager.get_table_from_file("crm/customers_test.csv")
-    ui.print_menu("Accounting manager MENU",special_functions,"")
-    choice=ui.get_inputs(" ","What's your choose")
-    
-
-    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
-        show_table(table)
-
-    elif int(choice[0])==2: #add
-        add(table)
-        data_manager.write_table_to_file("crm/customers_test.csv",table)
-
-    elif int(choice[0])==3: #remove
-        id=ui.get_inputs(" ","Add the ID")
-        id=id[0]
-        remove(table,id)
-        data_manager.write_table_to_file("crm/customers_test.csv",table)
-
-    elif int(choice[0])==4: #update
-        id=ui.get_inputs(" ","Add the ID")
-        id=id[0]
-        update(table,id)
-        data_manager.write_table_to_file("crm/customers_test.csv",table)
-
-    elif int(choice[0])==5: #
-        ui.print_result(which_year_max(table),"The max year: ")
-
-    elif int(choice[0])==6: #
-        year=ui.get_inputs(" ","Add the year")
-        year=year[0]
-        result=avg_amount(table,year)
-        if result!=None:
-            ui.print_result(result,"The average in {0}: ".format(year))
-
-    elif int(choice[0])==7: #main
-        common.clear()
-
-    else:
-        raise ValueError
+    # your code
 
 
 def show_table(table):
@@ -88,7 +41,7 @@ def show_table(table):
         None
     """
 
-    ui.print_table(table,["ID","Name","e-mail","Subscribed"])
+    # your code
 
 
 def add(table):
@@ -102,11 +55,8 @@ def add(table):
         list: Table with a new record
     """
 
-    list_to_add=ui.get_inputs(list_labels,"")
-    
-    list_to_add.insert(0,common.generate_random(table))
+    # your code
 
-    table.append(list_to_add)
     return table
 
 
@@ -122,14 +72,8 @@ def remove(table, id_):
         list: Table without specified record.
     """
 
-    count=0
-    searched_index=-1
-    for i in table:
-        if i[0]==id_:
-            searched_index=count
-        count+=1
-    table.pop(searched_index)
-    
+    # your code
+
     return table
 
 
@@ -145,16 +89,7 @@ def update(table, id_):
         list: table with updated record
     """
 
-    count=0
-    searched_index=-1
-    for i in table:
-        if i[0]==id_:
-            searched_index=count
-        count+=1
-    
-    to_change=ui.get_inputs(list_labels,title)
-    to_change.insert(0,common.generate_random(table))
-    table[searched_index]=to_change
+    # your code
 
     return table
 
@@ -182,15 +117,37 @@ def get_longest_name_id(table):
 
     max_name_length = 0
     ID_of_longest_name = ""
+    longest_names_dictionary = {}
+    longest_names = []
+    id_of_longest_names = []
 
     for i in range(len(table)):
-        if len(table[i][name]) > max_name_length:
-        max_name_length = len(table[i][name])
-        ID_of_longest_name = table[i][id]
-    
+        if max_name_length < len(table[i][name]):
+            max_name_length = len(table[i][name])
 
-a = data_manager.get_table_from_file("customers.csv")
-get_longest_name_id(a)
+    for i in range(len(table)):
+        if len(table[i][name]) >= max_name_length:
+            longest_names_dictionary[table[i][id]] = [table[i][name]]
+        
+    for i, j in longest_names_dictionary.items():
+        longest_names.append(j)
+        id_of_longest_names.append(i)
+    
+    for i in range(len(longest_names)):
+        for j in range(len(longest_names)):
+            if longest_names[i] < longest_names[j]:
+                temp = longest_names[i]
+                longest_names[i] = longest_names[j]
+                longest_names[j] = temp
+                temp2 = id_of_longest_names[i]
+                id_of_longest_names[i] = id_of_longest_names[j]
+                id_of_longest_names[j] = temp2 
+
+    
+    
+    return id_of_longest_names[len(longest_names)-1]
+
+
 
 
 def get_subscribed_emails(table):
@@ -207,4 +164,18 @@ def get_subscribed_emails(table):
         # the question: Which customers has subscribed to the newsletter?
         # return type: list of strings (where string is like email+separator+name, separator=";")
 
-    # your code
+    subscription_status = 3
+    email = 2
+    name = 1
+
+    subscirbed_people_list = []
+
+    for i in range(len(table)):
+        if int(table[i][subscription_status]) == 1:
+            string = table[i][email]+";"+table[i][name]
+            subscirbed_people_list.append(string)
+    return subscirbed_people_list
+
+    # WORKS
+
+
