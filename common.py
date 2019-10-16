@@ -2,8 +2,12 @@
 implement commonly used functions here
 """
 
-import random
+list_options = ["(1) Store manager","(2) Human resources manager","(3) Inventory manager",
+    "(4) Accounting manager","(5) Sales manager","(6) Customer relationship management (CRM)",
+    "(0) Exit program"]
 
+import random
+import ui
 
 def generate_random(table):
     """
@@ -19,7 +23,25 @@ def generate_random(table):
     """
 
     generated = ''
+    generated_list = []
 
-    # your code
+
+    special_characters = "!@#$%^&*()[]{,}:"
+    numbers = "1234567890"
+    lowercase_letters = "qwertyuiopasdfghjklzxcvbnm"
+    uppercase_letters = "qwertyuiopasdfghjklzxcvbnm".upper()
+
+
 
     return generated
+
+
+
+
+def MAIN_MENU(title, list_options, exit_message):
+    print(f"{title}: ")
+    for row in list_options:
+        print(row)
+    user_input = ui.get_inputs(" ", "Your choice (type a number!):\n")
+    if user_input == "0":
+        print(exit_message)

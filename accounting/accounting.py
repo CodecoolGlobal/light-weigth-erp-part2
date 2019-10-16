@@ -88,10 +88,8 @@ def show_table(table):
     Returns:
         None
     """
-    display_table = data_manager.get_table_form_file("items.csv")
-    print(display_table)
 
-    ui.print_table(table,["ID","Count1","Count2","Date","in/out","Sold"])
+    ui.print_table(table , ["ID","Count1","Count2","Date","in/out","Sold"])
 
 def add(table):
     """

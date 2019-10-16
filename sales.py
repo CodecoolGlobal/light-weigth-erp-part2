@@ -130,19 +130,32 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
     Returns:
         list: list of lists (the filtered table)
     """
-
+    year = 5
+    day = 4
+    month = 3
+    # nap honap ev integer
     result=[]
     for i in range(len(table)):
         if((int(table[i][year])>int(year_from)) and (int(table[i][year])<int(year_to))):
             result.append(table[i])
 
-        elif ((int(table[i][year])==int(year_from)) and (int(table[i][year])==int(year_to))):
+        elif ((int(table[i][year])==int(year_from)) or (int(table[i][year])==int(year_to))):
             if((int(table[i][month])>int(month_from)) and (int(table[i][month])<int(month_to))):
                 result.append(table[i])
 
-            elif((int(table[i][month])==int(month_from)) and (int(table[i][month])==int(month_to))):
-                if((int(table[i][day])>int(day_from)) and (int(table[i][day])<int(day_to))):
+            elif((int(table[i][month])==int(month_from)) or (int(table[i][month])==int(month_to))):
+                #if((int(table[i][day])>int(day_from)) and (int(table[i][day])<int(day_to))):
+                    
+                if ((int(table[i][day])>=int(day_from)) and (int(table[i][day])<=int(day_to))):
                     result.append(table[i])
+
+    valami = 2
+
+    for i in range(len(result)):
+        result[i][year] = int(result[i][year])
+        result[i][month] =int(result[i][month])
+        result[i][day] = int(result[i][day])
+        result[i][valami] = int(result[i][valami])
 
     return result
 

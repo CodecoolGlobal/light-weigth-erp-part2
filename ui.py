@@ -1,5 +1,7 @@
 """ User Interface (UI) module """
-
+list_options = ["(1) Store manager","(2) Human resources manager","(3) Inventory manager",
+    "(4) Accounting manager","(5) Sales manager","(6) Customer relationship management (CRM)",
+    "(0) Exit program"]
 
 def print_table(table, title_list):
     """
@@ -60,8 +62,9 @@ def print_menu(title, list_options, exit_message):
     Returns:
         None: This function doesn't return anything it only prints to console.
     """
-
-    # your code
+    print(f"{title}: ")
+    for row in list_options:
+        print(row)
 
 
 def get_inputs(list_labels, title):
@@ -101,4 +104,4 @@ def print_error_message(message):
         None: This function doesn't return anything it only prints to console.
     """
 
-    # your code
+    
