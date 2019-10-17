@@ -305,6 +305,3 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         result[i][year]=int(result[i][year])
 
     return result
-
-a = data_manager.get_table_from_file("sales.csv")
-start_module()
