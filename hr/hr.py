@@ -39,37 +39,38 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("hr/persons_test.csv")
-    ui.print_menu("Human Resources Manager MENU",special_functions,"")
+    ui.print_menu("Human Resources Manager MENU",special_functions,"go back to Main Menu.")
     choice=ui.get_inputs(" ","What's your choose")
+    choice=common.check_one_input_for_number(choice," ","What's your choose")
     
 
-    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
+    if choice==1: #show
         show_table(table)
 
-    elif int(choice[0])==2: #add
+    elif choice==2: #add
         add(table)
         data_manager.write_table_to_file("hr/persons_test.csv",table)
 
-    elif int(choice[0])==3: #remove
+    elif choice==3: #remove
         id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("hr/persons_test.csv",table)
 
-    elif int(choice[0])==4: #update
+    elif choice==4: #update
         id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("hr/persons_test.csv",table)
 
-    elif int(choice[0])==5: #oldest
+    elif choice==5: #oldest
         ui.print_result(get_oldest_person(table),"The oldest persons are:")
 
-    elif int(choice[0])==6: #closest to avg
+    elif choice==6: #closest to avg
         result=avg_amount(table,year)
         ui.print_result(result,"The person closest to average is:")
 
-    elif int(choice[0])==7: #main
+    elif choice==0: #main
         common.clear()
 
     else:

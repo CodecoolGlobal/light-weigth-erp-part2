@@ -52,7 +52,7 @@ def handle_menu():
 
 def main():
     while True:
-        handle_menu()    #átírva
+        handle_menu()
         try:
             choose()
         except KeyError as err:

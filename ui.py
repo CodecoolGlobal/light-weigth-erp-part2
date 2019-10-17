@@ -107,6 +107,8 @@ def print_menu(title, list_options, exit_message):
         char_c=str(count)
         print("("+char_c+")",i)
         count+=1
+    
+    print("\nPress 0 to",exit_message,"\n")
 
 
 def get_inputs(list_labels, title):

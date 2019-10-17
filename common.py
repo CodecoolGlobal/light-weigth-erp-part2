@@ -47,7 +47,7 @@ def generate_random(table):
 def clear():
     os.system("clear")
 
-def check_one_input(list,list_labels,title):
+def check_one_input_for_number(list,list_labels,title):
     value=list[0]
     statement=False
     
@@ -60,4 +60,3 @@ def check_one_input(list,list_labels,title):
             value=ui.get_inputs(list_labels,title)
 
     return value
-

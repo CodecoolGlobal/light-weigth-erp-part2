@@ -38,38 +38,39 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("store/games_test.csv")
-    ui.print_menu("Store Manager MENU",special_functions,"")
+    ui.print_menu("Store Manager MENU",special_functions,"go back to Main Menu.")
     choice=ui.get_inputs(" ","What's your choose")
+    choice=common.check_one_input_for_number(choice," ","What's your choose")
     
 
-    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
+    if choice==1: #show, choice[0] because from the user inputs we get lists 
         show_table(table)
 
-    elif int(choice[0])==2: #add
+    elif choice==2: #add
         add(table)
         data_manager.write_table_to_file("store/games_test.csv",table)
 
-    elif int(choice[0])==3: #remove
+    elif choice==3: #remove
         id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("store/games_test.csv",table)
 
-    elif int(choice[0])==4: #update
+    elif choice==4: #update
         id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("store/games_test.csv",table)
 
-    elif int(choice[0])==5: #counts
+    elif choice==5: #counts
         ui.print_result(get_counts_by_manufacturers(table),"This many different kinds of games are available for each manufacturer:")
 
-    elif int(choice[0])==6: #avg by manufac
+    elif choice==6: #avg by manufac
         manufacturer=ui.get_inputs(" ","Add the manufacturer")
         manufacturer=manufacturer[0]
         ui.print_result(get_average_by_manufacturer(table,manufacturer),"The average amount of games in stock of a given manufacturer is:")
 
-    elif int(choice[0])==7: #main
+    elif choice==0: #main
         common.clear()
 
     else:

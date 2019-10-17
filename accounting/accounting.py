@@ -44,9 +44,9 @@ def start_module():
     "Go back to main menu"]
 
     table=data_manager.get_table_from_file("accounting/items_test.csv")
-    ui.print_menu("Accounting Manager MENU",special_functions,"")
+    ui.print_menu("Accounting Manager MENU",special_functions,"go back to Main Menu.")
     choice=ui.get_inputs(" ","What's your choose")
-    common.check_one_input(choice," ","What's your choose")
+    choice=common.check_one_input_for_number(choice," ","What's your choose")
     
 
     if choice==1: #show, choice[0] because from the user inputs we get lists 
@@ -78,7 +78,7 @@ def start_module():
         if result!=None:
             ui.print_result(result,"The average profit in {0} is: ".format(year))
 
-    elif choice==7: #main
+    elif choice==0: #main
         common.clear()
 
     else:
@@ -127,7 +127,7 @@ def remove(table, id_):
     Returns:
         list: Table without specified record.
     """
-                        #id_ is a list that contains one attribute
+                        
     count=0
     searched_index=-1
     in_it=False
