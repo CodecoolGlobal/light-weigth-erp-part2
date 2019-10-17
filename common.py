@@ -60,3 +60,16 @@ def check_one_input_for_number(list,list_labels,title):
             value=ui.get_inputs(list_labels,title)
 
     return value
+
+
+def leap_year_checker(year):
+    if year % 4 == 0:
+        if year % 100 == 0:
+            if year / 400 == 0:
+                return True
+            else:
+                return False
+        else: 
+            return True
+    else:
+        return False

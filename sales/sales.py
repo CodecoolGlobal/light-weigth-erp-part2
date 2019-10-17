@@ -27,6 +27,10 @@ month=3
 day=4
 year=5
 
+
+month_to_day = {1: 31, 2: 28, 3:31, 4: 30, 5:31, 6:30, 7:31,
+ 8:31, 9:30, 10:31, 11: 30, 12: 31}
+
 def start_module():
     """
     Starts this module and displays its menu.
@@ -74,38 +78,42 @@ def start_module():
         ui.print_result(get_lowest_price_item_id(table),"The ID of the item that was sold for the lowest price is:")
 
     elif choice==6: #avg
-        list=["day","month","year"]
+        list=["year","month","day"]
         date1=[]
         date2=[]
         for i in range(3):
-            value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
-            value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
-            if i==0:
-                while not(value>0) or not(value<32):
+            value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
+
+            if i==0: # years
+                while not(value>0):
+                
                     ui.print_error_message("Wrong attribute")
                     value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
                     value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
                 date1.append(value)
 
-            elif i==1:
+            elif i==1: #months
                 while not(value>0) or not(value<13):
                     ui.print_error_message("Wrong attribute")
                     value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
                     value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
                 date1.append(value)
 
-            elif i==2:
-                while not(value>0):
+            elif i==2: # days
+                if common.leap_year_checker(date1[0]) is True:
+                    month_to_day[2] = 29
+                while not(value>0) or not(value <= month_to_day[date1[1]]):
                     ui.print_error_message("Wrong attribute")
                     value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
                     value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
                 date1.append(value)
-
+                month_to_day[2] = 28
         for i in range(3):
             value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
             value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
             if i==0:
-                while not(value>0) or not(value<32):
+                while not(value>0):
+                
                     ui.print_error_message("Wrong attribute")
                     value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
                     value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
@@ -119,14 +127,17 @@ def start_module():
                 date2.append(value)
 
             elif i==2:
-                while not(value>0):
+                if common.leap_year_checker(int(date2[0])) == True:
+                    month_to_day[2] = 29
+                while not(value>0) or not(value <= month_to_day[date1[1]]):
                     ui.print_error_message("Wrong attribute")
                     value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
                     value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
+                    
                 date2.append(value)
-
-        result=get_items_sold_between(table,date1[0],
-        date1[1],date1[2],date2[0],date2[1],date2[2])
+                month_to_day[2] = 28
+        result=get_items_sold_between(table,date1[1],
+        date1[2],date1[0],date2[1],date2[2],date2[0])
 
         ui.print_result(result,"These items are sold between the given dates:")
 
@@ -294,3 +305,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         result[i][year]=int(result[i][year])
 
     return result
+
+a = data_manager.get_table_from_file("sales.csv")
+start_module()
