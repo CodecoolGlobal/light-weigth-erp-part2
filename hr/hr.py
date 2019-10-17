@@ -40,8 +40,8 @@ def start_module():
 
     table=data_manager.get_table_from_file("hr/persons_test.csv")
     ui.print_menu("Human Resources Manager MENU",special_functions,"go back to Main Menu.")
-    choice=ui.get_inputs(" ","What's your choose")
-    choice=common.check_one_input_for_number(choice," ","What's your choose")
+    choice=ui.get_inputs(" ","What's your choice?")
+    choice=common.check_one_input_for_number(choice," ","What's your choice?")
     
 
     if choice==1: #show
