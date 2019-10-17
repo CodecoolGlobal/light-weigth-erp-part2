@@ -35,8 +35,7 @@ def start_module():
     "Remove element by it's ID",
     "Update an element",
     "Get oldest person",
-    "Get person whose closest to averege",
-    "Go back to main menu"]
+    "Get person whose closest to averege"]
 
     table=data_manager.get_table_from_file("hr/persons_test.csv")
     ui.print_menu("Human Resources Manager MENU",special_functions,"go back to Main Menu.")

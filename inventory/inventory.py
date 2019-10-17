@@ -34,8 +34,7 @@ def start_module():
     "Remove element by it's ID",
     "Update an element",
     "Get which items have not exceeded their durability yet",
-    "Get the average durability times for each manufacturer",
-    "Go back to main menu"]
+    "Get the average durability times for each manufacturer"]
 
     table=data_manager.get_table_from_file("inventory/inventory_test.csv")
     ui.print_menu("Inventory Manager MENU",special_functions,"go back to Main Menu.")

@@ -40,8 +40,7 @@ def start_module():
     "Remove element by it's ID",
     "Update an element",
     "Get which year has the highest profit",
-    "Get what is the average profit in a given year?",
-    "Go back to main menu"]
+    "Get what is the average profit in a given year?"]
 
     table=data_manager.get_table_from_file("accounting/items_test.csv")
     ui.print_menu("Accounting Manager MENU",special_functions,"go back to Main Menu.")

@@ -34,8 +34,7 @@ def start_module():
     "Remove element by it's ID",
     "Update an element by it's ID",
     "Get longest name ID",
-    "Get subscribed e-mails",
-    "Go back to main menu"]
+    "Get subscribed e-mails"]
 
     table=data_manager.get_table_from_file("crm/customers_test.csv")
     ui.print_menu("Customer Relationship Management MENU",special_functions,"go back to Main Menu.")

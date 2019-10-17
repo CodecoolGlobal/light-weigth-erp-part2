@@ -46,8 +46,7 @@ def start_module():
     "Remove element by it's ID",
     "Update an element",
     "Get lowest price ID",
-    "Get items sold between two dates",
-    "Go back to main menu"]
+    "Get items sold between two dates"]
 
     table=data_manager.get_table_from_file("sales/sales_test.csv")
     ui.print_menu("Sales Manager MENU",special_functions,"")

@@ -34,8 +34,7 @@ def start_module():
     "Remove element by it's ID",
     "Update an element",
     "Get counts by manufacturer",
-    "Get averege products",
-    "Go back to main menu"]
+    "Get averege products"]
 
     table=data_manager.get_table_from_file("store/games_test.csv")
     ui.print_menu("Store Manager MENU",special_functions,"go back to Main Menu.")
