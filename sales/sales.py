@@ -77,13 +77,47 @@ def start_module():
         date1=[]
         date2=[]
         for i in range(3):
-            date1.append(ui.get_inputs(" ","Add the first date's {}".format(list[i])))
+            value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
+            if i==0:
+                while not(value>0) or not(value<32):
+                    ui.print_error_message("Wrong attribute")
+                    value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
+                date1.append(value)
+
+            elif i==1:
+                while not(value>0) or not(value<13):
+                    ui.print_error_message("Wrong attribute")
+                    value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
+                date1.append(value)
+
+            elif i==2:
+                while not(value>0):
+                    ui.print_error_message("Wrong attribute")
+                    value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
+                date1.append(value)
 
         for i in range(3):
-            date2.append(ui.get_inputs(" ","Add the second date's {}".format(list[i])))
+            value=int(ui.get_inputs(" ","Add the second date's {}".format(list[i]))[0])
+            if i==0:
+                while not(value>0) or not(value<32):
+                    ui.print_error_message("Wrong attribute")
+                    value=int(ui.get_inputs(" ","Add the second date's {}".format(list[i]))[0])
+                date2.append(value)
 
-        result=get_items_sold_between(table,date1[0][0],
-        date1[1][0],date1[2][0],date2[0][0],date2[1][0],date2[2][0])
+            elif i==1:
+                while not(value>0) or not(value<13):
+                    ui.print_error_message("Wrong attribute")
+                    value=int(ui.get_inputs(" ","Add the second date's {}".format(list[i]))[0])
+                date2.append(value)
+
+            elif i==2:
+                while not(value>0):
+                    ui.print_error_message("Wrong attribute")
+                    value=int(ui.get_inputs(" ","Add the second date's {}".format(list[i]))[0])
+                date2.append(value)
+
+        result=get_items_sold_between(table,date1[0],
+        date1[1],date1[2],date2[0],date2[1],date2[2])
 
         ui.print_result(result,"These items are sold between the given dates:")
 
@@ -140,11 +174,17 @@ def remove(table, id_):
 
     count=0
     searched_index=-1
+    in_it=False
     for i in table:
         if i[0]==id_:
             searched_index=count
+            in_it=True
         count+=1
-    table.pop(searched_index)
+
+    if in_it:    
+        table.pop(searched_index)
+    else:
+        ui.print_error_message("ID not found")
     
     return table
 
@@ -163,16 +203,22 @@ def update(table, id_):
 
     count=0
     searched_index=-1
+    in_it=False
     for i in table:
         if i[0]==id_:
             searched_index=count
+            in_it=True
         count+=1
     
-    to_change=ui.get_inputs(list_labels,"")
-    to_change.insert(0,common.generate_random(table))
-    table[searched_index]=to_change
+    if in_it:
+        to_change=ui.get_inputs(list_labels,"")
+        to_change.insert(0,common.generate_random(table))
+        table[searched_index]=to_change
 
-    return table
+        return table
+    
+    else:
+        ui.print_error_message("ID is not found")
 
 
 # special functions:

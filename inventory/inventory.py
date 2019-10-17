@@ -123,11 +123,17 @@ def remove(table, id_):
     """
     count=0
     searched_index=-1
+    in_it=False
     for i in table:
         if i[0]==id_:
             searched_index=count
+            in_it=True
         count+=1
-    table.pop(searched_index)
+
+    if in_it:    
+        table.pop(searched_index)
+    else:
+        ui.print_error_message("ID not found")
     
     return table
 
@@ -147,16 +153,22 @@ def update(table, id_):
 
     count=0
     searched_index=-1
+    in_it=False
     for i in table:
         if i[0]==id_:
             searched_index=count
+            in_it=True
         count+=1
     
-    to_change=ui.get_inputs(list_labels,"")
-    to_change.insert(0,common.generate_random(table))
-    table[searched_index]=to_change
+    if in_it:
+        to_change=ui.get_inputs(list_labels,"")
+        to_change.insert(0,common.generate_random(table))
+        table[searched_index]=to_change
 
-    return table
+        return table
+    
+    else:
+        ui.print_error_message("ID is not found")
 
 
 # special functions:

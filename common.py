@@ -46,3 +46,18 @@ def generate_random(table):
 
 def clear():
     os.system("clear")
+
+def check_one_input(list,list_labels,title):
+    value=list[0]
+    statement=False
+    
+    while(statement!=True):
+        try:
+            value=int(list[0])
+            statement=True
+        except:
+            ui.print_error_message("Wrong input!")
+            value=ui.get_inputs(list_labels,title)
+
+    return value
+

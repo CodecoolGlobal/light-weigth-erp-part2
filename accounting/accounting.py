@@ -46,42 +46,43 @@ def start_module():
     table=data_manager.get_table_from_file("accounting/items_test.csv")
     ui.print_menu("Accounting Manager MENU",special_functions,"")
     choice=ui.get_inputs(" ","What's your choose")
+    common.check_one_input(choice," ","What's your choose")
     
 
-    if int(choice[0])==1: #show, choice[0] because from the user inputs we get lists 
+    if choice==1: #show, choice[0] because from the user inputs we get lists 
         show_table(table)
 
-    elif int(choice[0])==2: #add
+    elif choice==2: #add
         add(table)
         data_manager.write_table_to_file("accounting/items_test.csv",table)
 
-    elif int(choice[0])==3: #remove
+    elif choice==3: #remove
         id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         remove(table,id)
         data_manager.write_table_to_file("accounting/items_test.csv",table)
 
-    elif int(choice[0])==4: #update
+    elif choice==4: #update
         id=ui.get_inputs(" ","Add the searched ID")
         id=id[0]
         update(table,id)
         data_manager.write_table_to_file("accounting/items_test.csv",table)
 
-    elif int(choice[0])==5: #max
+    elif choice==5: #max
         ui.print_result(which_year_max(table),"The max profit's year: ")
 
-    elif int(choice[0])==6: #avg
+    elif choice==6: #avg
         year=ui.get_inputs(" ","Add the year")
         year=year[0]
         result=avg_amount(table,year)
         if result!=None:
             ui.print_result(result,"The average profit in {0} is: ".format(year))
 
-    elif int(choice[0])==7: #main
+    elif choice==7: #main
         common.clear()
 
     else:
-        raise ValueError
+        ui.print_error_message("Wrong input!")
 
 
 def show_table(table):
@@ -129,11 +130,17 @@ def remove(table, id_):
                         #id_ is a list that contains one attribute
     count=0
     searched_index=-1
+    in_it=False
     for i in table:
         if i[0]==id_:
             searched_index=count
+            in_it=True
         count+=1
-    table.pop(searched_index)
+
+    if in_it:    
+        table.pop(searched_index)
+    else:
+        ui.print_error_message("ID not found")
     
     return table
 
@@ -152,16 +159,22 @@ def update(table, id_):
 
     count=0
     searched_index=-1
+    in_it=False
     for i in table:
         if i[0]==id_:
             searched_index=count
+            in_it=True
         count+=1
     
-    to_change=ui.get_inputs(list_labels,"")
-    to_change.insert(0,common.generate_random(table))
-    table[searched_index]=to_change
+    if in_it:
+        to_change=ui.get_inputs(list_labels,"")
+        to_change.insert(0,common.generate_random(table))
+        table[searched_index]=to_change
 
-    return table
+        return table
+    
+    else:
+        ui.print_error_message("ID is not found")
 
 
 # special functions:
