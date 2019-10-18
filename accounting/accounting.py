@@ -127,20 +127,11 @@ def remove(table, id_):
         list: Table without specified record.
     """
                         
-    count=0
-    searched_index=-1
-    in_it=False
-    for i in table:
-        if i[0]==id_:
-            searched_index=count
-            in_it=True
-        count+=1
-
-    if in_it:    
-        table.pop(searched_index)
-    else:
-        ui.print_error_message("ID not found")
-    
+    for i in range(len(table)):
+        if table[i][0]==id_:
+            table.pop(i)
+            return table
+    ui.print_error_message("ID not found")
     return table
 
 
@@ -189,16 +180,38 @@ def which_year_max(table):
     Returns:
         number
     """
+    
+    incomes = {}
+    for row in table:
+        #row = table[i]
+        year = int(row[3])
+        out = row[4] == 'out' # bool
+        amount = int(row[5])
+        if not(year in incomes):
+            incomes[year] = 0 # amount
+        if out:
+            incomes[year] -= amount
+        else:
+            incomes[year] += amount
 
-    income = 0
-    spending = 0
+    max_year = None
+    max_amount = None
+    for year, amount in incomes.items():
+        if max_amount is None or max_amount < amount:
+            max_amount = amount
+            max_year = year
+
+    return max_year
+
+
+
+
     year_in_file = 3
     money_in_or_out = 4
     amount_of_money_in_or_out = 5
     
     year_and_its_profits = {}
     
-    profit_list = []
     profit = 0
 
     for i in range(len(table)):
@@ -237,6 +250,34 @@ def avg_amount(table, year):
     Returns:
         number
     """
+
+
+    profit = 0
+    year_count = 0
+    for row in table:
+        year_in_table = int(row[3])
+        out = row[4] == 'out'
+        amount = int(row[5])
+        if year in row:
+            if out:
+                profit -= amount
+            else:
+                profit += amount
+            year_count += 1
+        
+        if year_count == 0:
+            ui.print_error_message("Can't divide by zero!")
+        else:
+            return profit/year_count
+            
+
+
+
+
+
+
+
+
     average_profit = 0
     profit = 0
     income = 0

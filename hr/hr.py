@@ -183,6 +183,7 @@ def get_oldest_person(table):
     Returns:
         list: A list of strings (name or names if there are two more with the same value)
     """
+    
     oldest_date = 999999999
 
     born_year = 2
