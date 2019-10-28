@@ -236,7 +236,6 @@ def get_subscribed_emails(table):
             list: list of strings (where a string is like "email;name")
         """
 
-<<<<<<< HEAD
         # the question: Which customers has subscribed to the newsletter?
         # return type: list of strings (where string is like email+separator+name, separator=";")
 
@@ -251,7 +250,6 @@ def get_subscribed_emails(table):
             string = table[i][email]+";"+table[i][name]
             subscirbed_people_list.append(string)
     return subscirbed_people_list
-=======
     # your code
 
 
@@ -288,4 +286,3 @@ def get_name_by_id_from_table(table, id):
     """
 
     # your code
->>>>>>> origin/week2

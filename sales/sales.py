@@ -285,7 +285,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         list: list of lists (the filtered table)
     """
 
-<<<<<<< HEAD
     result=[]
     for i in range(len(table)):
         if((int(table[i][year])>int(year_from)) and (int(table[i][year])<int(year_to))):
@@ -306,7 +305,6 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
         result[i][year]=int(result[i][year])
 
     return result
-=======
     # your code
 
 
@@ -527,4 +525,3 @@ def get_num_of_sales_per_customer_ids_from_table(table):
     """
 
     # your code
->>>>>>> origin/week2
