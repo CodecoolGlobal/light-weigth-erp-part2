@@ -316,7 +316,7 @@ def get_items_sold_between(table, month_from, day_from, year_from, month_to, day
 # --------------------------------
 
 
-def get_title_by_id(id):
+def get_title_by_id(id_):
 
     """
     Reads the table with the help of the data_manager module.
@@ -328,11 +328,17 @@ def get_title_by_id(id):
     Returns:
         str: the title of the item
     """
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
 
-    # your code
+    for i in range(len(table)):
+        if table[i][id] == id_:
+            return table[i][title]
+
+    return None
+   
 
 
-def get_title_by_id_from_table(table, id):
+def get_title_by_id_from_table(table, id_):
 
     """
     Returns the title (str) of the item with the given id (str) on None om case of non-existing id.
@@ -344,8 +350,11 @@ def get_title_by_id_from_table(table, id):
     Returns:
         str: the title of the item
     """
+    for i in range(len(table)):
+        if table[i][id] == id_:
+            return table[i][title]
 
-    # your code
+    return None    
 
 
 def get_item_id_sold_last():
@@ -357,7 +366,32 @@ def get_item_id_sold_last():
         str: the _id_ of the item that was sold most recently.
     """
 
-    # your code
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
+    
+    game_dict = {}
+    for i in range(len(table)):
+        if len(table[i][month]) == 1:
+            if len(table[i][day]) == 1:
+                game_dict[table[i][id]] = table[i][year] + "0" + table[i][month] + "0" + table[i][day]
+            else:
+                 game_dict[table[i][id]] = table[i][year] + "0" + table[i][month] + table[i][day]
+        else:
+            if len(table[i][day]) == 1:
+                game_dict[table[i][id]] = table[i][year]+table[i][month] + "0" + table[i][day]
+            else:
+                game_dict[table[i][id]] = table[i][year]+table[i][month] + table[i][day]
+
+    result = ""
+    max_date = ""
+    for i in game_dict:
+        max_date = game_dict[i]
+        break 
+    for key, value in game_dict.items():
+        if max_date <= value:
+            result = key
+            max_date = value
+    
+    return result
 
 
 def get_item_id_sold_last_from_table(table):
@@ -371,7 +405,31 @@ def get_item_id_sold_last_from_table(table):
         str: the _id_ of the item that was sold most recently.
     """
 
-    # your code
+    game_dict = {}
+    for i in range(len(table)):
+        if len(table[i][month]) == 1:
+            if len(table[i][day]) == 1:
+                game_dict[table[i][id]] = table[i][year] + "0" + table[i][month] + "0" + table[i][day]
+            else:
+                 game_dict[table[i][id]] = table[i][year] + "0" + table[i][month] + table[i][day]
+        else:
+            if len(table[i][day]) == 1:
+                game_dict[table[i][id]] = table[i][year]+table[i][month] + "0" + table[i][day]
+            else:
+                game_dict[table[i][id]] = table[i][year]+table[i][month] + table[i][day]
+
+    result = ""
+    max_date = ""
+    for i in game_dict:
+        max_date = game_dict[i]
+        break 
+
+    for key, value in game_dict.items():
+        if max_date <= value:
+            result = key
+            max_date = value
+
+    return result
 
 
 def get_item_title_sold_last_from_table(table):
@@ -385,7 +443,31 @@ def get_item_title_sold_last_from_table(table):
         str: the _title_ of the item that was sold most recently.
     """
 
-    # your code
+    game_dict = {}
+    for i in range(len(table)):
+        if len(table[i][month]) == 1:
+            if len(table[i][day]) == 1:
+                game_dict[table[i][title]] = table[i][year] + "0" + table[i][month] + "0" + table[i][day]
+            else:
+                 game_dict[table[i][title]] = table[i][year] + "0" + table[i][month] + table[i][day]
+        else:
+            if len(table[i][day]) == 1:
+                game_dict[table[i][title]] = table[i][year]+table[i][month] + "0" + table[i][day]
+            else:
+                game_dict[table[i][title]] = table[i][year]+table[i][month] + table[i][day]
+
+    result = ""
+    max_date = ""
+    for i in game_dict:
+        max_date = game_dict[i]
+        break 
+
+    for key, value in game_dict.items():
+        if max_date <= value:
+            result = key
+            max_date = value
+
+    return result
 
 
 def get_the_sum_of_prices(item_ids):
@@ -399,8 +481,14 @@ def get_the_sum_of_prices(item_ids):
     Returns:
         number: the sum of the items' prices
     """
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
 
-    # your code
+    price_sum = 0
+    for i in range(len(table)):
+        if table[i][id] in item_ids:
+            price_sum += int(table[i][price])
+
+    return price_sum
 
 
 def get_the_sum_of_prices_from_table(table, item_ids):
@@ -415,7 +503,12 @@ def get_the_sum_of_prices_from_table(table, item_ids):
         number: the sum of the items' prices
     """
 
-    # your code
+    price_sum = 0
+    for i in range(len(table)):
+        if table[i][id] in item_ids:
+            price_sum += int(table[i][price])
+
+    return price_sum
 
 
 def get_customer_id_by_sale_id(sale_id):
@@ -429,8 +522,14 @@ def get_customer_id_by_sale_id(sale_id):
     Returns:
          str: customer_id that belongs to the given sale id
     """
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
 
-    # your code
+    for i in range(len(table)):
+        if sale_id == table[i][id]:
+            return table[i][-1]
+
+    return None
+    
 
 
 def get_customer_id_by_sale_id_from_table(table, sale_id):
@@ -445,7 +544,11 @@ def get_customer_id_by_sale_id_from_table(table, sale_id):
         str: customer_id that belongs to the given sale id
     """
 
-    # your code
+    for i in range(len(table)):
+        if sale_id == table[i][id]:
+            return table[i][-1]
+
+    return None
 
 
 def get_all_customer_ids():
