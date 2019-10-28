@@ -54,98 +54,102 @@ def start_module():
     choice=ui.get_inputs(" ","What's your choice?")
     choice=common.check_one_input_for_number(choice," ","What's your choice?")
     
+    while choice!=0:
+        if choice==1: #show, choice[0] because from the user inputs we get lists 
+            show_table(table)
 
-    if choice==1: #show, choice[0] because from the user inputs we get lists 
-        show_table(table)
+        elif choice==2: #add
+            add(table)
+            data_manager.write_table_to_file("sales/sales_test.csv",table)
 
-    elif choice==2: #add
-        add(table)
-        data_manager.write_table_to_file("sales/sales_test.csv",table)
+        elif choice==3: #remove
+            id=ui.get_inputs(" ","Add the searched ID")
+            id=id[0]
+            remove(table,id)
+            data_manager.write_table_to_file("sales/sales_test.csv",table)
 
-    elif choice==3: #remove
-        id=ui.get_inputs(" ","Add the searched ID")
-        id=id[0]
-        remove(table,id)
-        data_manager.write_table_to_file("sales/sales_test.csv",table)
+        elif choice==4: #update
+            id=ui.get_inputs(" ","Add the searched ID")
+            id=id[0]
+            update(table,id)
+            data_manager.write_table_to_file("sales/sales_test.csv",table)
 
-    elif choice==4: #update
-        id=ui.get_inputs(" ","Add the searched ID")
-        id=id[0]
-        update(table,id)
-        data_manager.write_table_to_file("sales/sales_test.csv",table)
+        elif choice==5: #lowest price item id
+            ui.print_result(get_lowest_price_item_id(table),"The ID of the item that was sold for the lowest price is:")
 
-    elif choice==5: #lowest price item id
-        ui.print_result(get_lowest_price_item_id(table),"The ID of the item that was sold for the lowest price is:")
+        elif choice==6: #avg
+            list=["year","month","day"]
+            date1=[]
+            date2=[]
+            for i in range(3):
+                value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
 
-    elif choice==6: #avg
-        list=["year","month","day"]
-        date1=[]
-        date2=[]
-        for i in range(3):
-            value=int(ui.get_inputs(" ","Add the first date's {}".format(list[i]))[0])
-
-            if i==0: # years
-                while not(value>0):
-                
-                    ui.print_error_message("Wrong attribute")
-                    value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
-                    value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
-                date1.append(value)
-
-            elif i==1: #months
-                while not(value>0) or not(value<13):
-                    ui.print_error_message("Wrong attribute")
-                    value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
-                    value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
-                date1.append(value)
-
-            elif i==2: # days
-                if common.leap_year_checker(date1[0]) is True:
-                    month_to_day[2] = 29
-                while not(value>0) or not(value <= month_to_day[date1[1]]):
-                    ui.print_error_message("Wrong attribute")
-                    value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
-                    value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
-                date1.append(value)
-                month_to_day[2] = 28
-        for i in range(3):
-            value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
-            value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
-            if i==0:
-                while not(value>0):
-                
-                    ui.print_error_message("Wrong attribute")
-                    value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
-                    value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
-                date2.append(value)
-
-            elif i==1:
-                while not(value>0) or not(value<13):
-                    ui.print_error_message("Wrong attribute")
-                    value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
-                    value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
-                date2.append(value)
-
-            elif i==2:
-                if common.leap_year_checker(int(date2[0])) == True:
-                    month_to_day[2] = 29
-                while not(value>0) or not(value <= month_to_day[date1[1]]):
-                    ui.print_error_message("Wrong attribute")
-                    value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
-                    value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
+                if i==0: # years
+                    while not(value>0):
                     
-                date2.append(value)
-                month_to_day[2] = 28
-        result=get_items_sold_between(table,date1[1],
-        date1[2],date1[0],date2[1],date2[2],date2[0])
+                        ui.print_error_message("Wrong attribute")
+                        value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
+                        value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
+                    date1.append(value)
 
-        ui.print_result(result,"These items are sold between the given dates:")
+                elif i==1: #months
+                    while not(value>0) or not(value<13):
+                        ui.print_error_message("Wrong attribute")
+                        value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
+                        value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
+                    date1.append(value)
 
-    elif choice==0: #main
+                elif i==2: # days
+                    if common.leap_year_checker(date1[0]) is True:
+                        month_to_day[2] = 29
+                    while not(value>0) or not(value <= month_to_day[date1[1]]):
+                        ui.print_error_message("Wrong attribute")
+                        value=ui.get_inputs(" ","Add the first date's {}".format(list[i]))
+                        value=common.check_one_input_for_number(value," ","Add the first date's {}".format(list[i]))
+                    date1.append(value)
+                    month_to_day[2] = 28
+            for i in range(3):
+                value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
+                value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
+                if i==0:
+                    while not(value>0):
+                    
+                        ui.print_error_message("Wrong attribute")
+                        value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
+                        value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
+                    date2.append(value)
+
+                elif i==1:
+                    while not(value>0) or not(value<13):
+                        ui.print_error_message("Wrong attribute")
+                        value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
+                        value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
+                    date2.append(value)
+
+                elif i==2:
+                    if common.leap_year_checker(int(date2[0])) == True:
+                        month_to_day[2] = 29
+                    while not(value>0) or not(value <= month_to_day[date1[1]]):
+                        ui.print_error_message("Wrong attribute")
+                        value=ui.get_inputs(" ","Add the second date's {}".format(list[i]))
+                        value=common.check_one_input_for_number(value," ","Add the second date's {}".format(list[i]))
+                        
+                    date2.append(value)
+                    month_to_day[2] = 28
+            result=get_items_sold_between(table,date1[1],
+            date1[2],date1[0],date2[1],date2[2],date2[0])
+
+            ui.print_result(result,"These items are sold between the given dates:")
+
+        else:
+            raise ValueError
+
+        ui.print_menu("Sales Manager MENU",special_functions,"")
+        choice=ui.get_inputs(" ","What's your choice?")
+        choice=common.check_one_input_for_number(choice," ","What's your choice?")
         common.clear()
-
-    else:
-        raise ValueError
+    
+    common.clear()
 
 def show_table(table):
     """

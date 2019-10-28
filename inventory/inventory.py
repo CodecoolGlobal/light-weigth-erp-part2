@@ -41,41 +41,44 @@ def start_module():
     choice=ui.get_inputs(" ","What's your choice?")
     choice=common.check_one_input_for_number(choice," ","What's your choice?")
     
+    while choice!=0:
+        if choice==1: #show, choice[0] because from the user inputs we get lists 
+            show_table(table)
 
-    if choice==1: #show, choice[0] because from the user inputs we get lists 
-        show_table(table)
+        elif choice==2: #add
+            add(table)
+            data_manager.write_table_to_file("inventory/inventory_test.csv",table)
 
-    elif choice==2: #add
-        add(table)
-        data_manager.write_table_to_file("inventory/inventory_test.csv",table)
+        elif choice==3: #remove
+            id=ui.get_inputs(" ","Add the searched ID")
+            id=id[0]
+            remove(table,id)
+            data_manager.write_table_to_file("inventory/inventory_test.csv",table)
 
-    elif choice==3: #remove
-        id=ui.get_inputs(" ","Add the searched ID")
-        id=id[0]
-        remove(table,id)
-        data_manager.write_table_to_file("inventory/inventory_test.csv",table)
+        elif choice==4: #update
+            id=ui.get_inputs(" ","Add the searched ID")
+            id=id[0]
+            update(table,id)
+            data_manager.write_table_to_file("inventory/inventory_test.csv",table)
 
-    elif choice==4: #update
-        id=ui.get_inputs(" ","Add the searched ID")
-        id=id[0]
-        update(table,id)
-        data_manager.write_table_to_file("inventory/inventory_test.csv",table)
+        elif choice==5: #exceeded
+            year=ui.get_inputs(" ","Give the year")
+            year=common.check_one_input_for_number(year," ","Give the year")
+            ui.print_result(get_available_items(table,year),"These items that not exceeded their durability yet:")
 
-    elif choice==5: #exceeded
-        year=ui.get_inputs(" ","Give the year")
-        year=common.check_one_input_for_number(year," ","Give the year")
-        ui.print_result(get_available_items(table,year),"These items that not exceeded their durability yet:")
+        elif choice==6: #manufactures avg
+            result=get_average_durability_by_manufacturers(table)
+            ui.print_result(result,"The average durability times for each manufaturer is:")
 
-    elif choice==6: #manufactures avg
-        result=get_average_durability_by_manufacturers(table)
-        ui.print_result(result,"The average durability times for each manufaturer is:")
-
-    elif choice==0: #main
+        else:
+            raise ValueError
+        
+        ui.print_menu("Inventory Manager MENU",special_functions,"go back to Main Menu.")
+        choice=ui.get_inputs(" ","What's your choice?")
+        choice=common.check_one_input_for_number(choice," ","What's your choice?")
         common.clear()
 
-    else:
-        raise ValueError
-   
+    common.clear()
 
 
 def show_table(table):

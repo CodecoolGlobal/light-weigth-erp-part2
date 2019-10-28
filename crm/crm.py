@@ -41,38 +41,42 @@ def start_module():
     choice=ui.get_inputs(" ","What's your choice?")
     choice=common.check_one_input_for_number(choice," ","What's your choice?")
     
+    while choice!=0:
+        if choice==1: #show, choice[0] because from the user inputs we get lists 
+            show_table(table)
 
-    if choice==1: #show, choice[0] because from the user inputs we get lists 
-        show_table(table)
+        elif choice==2: #add
+            add(table)
+            data_manager.write_table_to_file("crm/customers_test.csv",table)
 
-    elif choice==2: #add
-        add(table)
-        data_manager.write_table_to_file("crm/customers_test.csv",table)
+        elif choice==3: #remove
+            id=ui.get_inputs(" ","Add the searched ID")
+            id=id[0]
+            remove(table,id)
+            data_manager.write_table_to_file("crm/customers_test.csv",table)
 
-    elif choice==3: #remove
-        id=ui.get_inputs(" ","Add the searched ID")
-        id=id[0]
-        remove(table,id)
-        data_manager.write_table_to_file("crm/customers_test.csv",table)
+        elif choice==4: #update
+            id=ui.get_inputs(" ","Add the searched ID")
+            id=id[0]
+            update(table,id)
+            data_manager.write_table_to_file("crm/customers_test.csv",table)
 
-    elif choice==4: #update
-        id=ui.get_inputs(" ","Add the searched ID")
-        id=id[0]
-        update(table,id)
-        data_manager.write_table_to_file("crm/customers_test.csv",table)
+        elif choice==5: #ID cust
+            ui.print_result(get_longest_name_id(table),"The ID of the customer is:")
 
-    elif choice==5: #ID cust
-        ui.print_result(get_longest_name_id(table),"The ID of the customer is:")
+        elif choice==6: #subscribed
+            result=get_subscribed_emails(table)
+            ui.print_result(result,"These customers have subscribed to the news letter:")
 
-    elif choice==6: #subscribed
-        result=get_subscribed_emails(table)
-        ui.print_result(result,"These customers have subscribed to the news letter:")
+        else:
+            raise ValueError
 
-    elif choice==0: #main
+        ui.print_menu("Customer Relationship Management MENU",special_functions,"go back to Main Menu.")
+        choice=ui.get_inputs(" ","What's your choice?")
+        choice=common.check_one_input_for_number(choice," ","What's your choice?")
         common.clear()
 
-    else:
-        raise ValueError
+    common.clear()
 
 
 def show_table(table):
