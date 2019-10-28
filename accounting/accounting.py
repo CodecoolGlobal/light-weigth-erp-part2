@@ -270,7 +270,7 @@ def avg_amount(table, year):
             year_count += 1
         
         if year_count == 0:
-            ui.print_error_message("Can't divide by zero!")
+            pass#ui.print_error_message("Can't divide by zero!")
         else:
             return profit/year_count
             
