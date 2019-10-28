@@ -456,7 +456,17 @@ def get_all_customer_ids():
          set of str: set of customer_ids that are present in the table
     """
 
-    # your code
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
+
+    customer_id=-1
+
+    list_of_elements={}
+    list_of_elements=set(list_of_elements)
+
+    for row in table:
+        list_of_elements.add(row[customer_id])
+
+    return list_of_elements
 
 
 def get_all_customer_ids_from_table(table):
@@ -469,7 +479,17 @@ def get_all_customer_ids_from_table(table):
          set of str: set of customer_ids that are present in the table
     """
 
-    # your code
+    customer_id=-1
+
+    list_of_elements={}
+    list_of_elements=set(list_of_elements)
+
+    for row in table:
+        list_of_elements.add(row[customer_id])
+
+    return list_of_elements
+
+
 
 
 def get_all_sales_ids_for_customer_ids():
@@ -485,7 +505,26 @@ def get_all_sales_ids_for_customer_ids():
             all the sales id belong to the given customer_id
     """
 
-    # your code
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
+
+    dictionary={}
+    customer_id=0
+
+    for row in table:
+        if not(row[-1] in dictionary):
+            dictionary[row[-1]]=[]
+
+    sale_ids=[]
+
+    
+    for elements in dictionary:
+        for row in table:
+            if row[-1]==elements:
+                sale_ids.append(row[customer_id])
+        dictionary[elements]=sale_ids
+        sale_ids=[]
+
+    return dictionary
 
 
 def get_all_sales_ids_for_customer_ids_from_table(table):
@@ -501,7 +540,25 @@ def get_all_sales_ids_for_customer_ids_from_table(table):
          all the sales id belong to the given customer_id
     """
 
-    # your code
+    dictionary={}
+    customer_id=0
+
+    for row in table:
+        if not(row[-1] in dictionary):
+            dictionary[row[-1]]=[]
+
+    sale_ids=[]
+
+    
+    for elements in dictionary:
+        for row in table:
+            if row[-1]==elements:
+                sale_ids.append(row[customer_id])
+        dictionary[elements]=sale_ids
+        sale_ids=[]
+
+    return dictionary
+
 
 
 def get_num_of_sales_per_customer_ids():
@@ -514,7 +571,20 @@ def get_num_of_sales_per_customer_ids():
          dict of (key, value): (customer_id (str), num_of_sales (number))
     """
 
-    # your code
+    table=data_manager.get_table_from_file("sales/sales_test.csv")
+    
+    customer_id=6
+
+    dictionary={}
+
+    for row in table:
+        if row[customer_id] in dictionary:
+            dictionary[row[customer_id]]+=1
+        else:
+            dictionary[row[customer_id]]=1
+
+    return dictionary
+
 
 
 def get_num_of_sales_per_customer_ids_from_table(table):
@@ -527,5 +597,15 @@ def get_num_of_sales_per_customer_ids_from_table(table):
      Returns:
          dict of (key, value): (customer_id (str), num_of_sales (number))
     """
+    customer_id=6
 
-    # your code
+    dictionary={}
+
+    for row in table:
+        if row[customer_id] in dictionary:
+            dictionary[row[customer_id]]+=1
+        else:
+            dictionary[row[customer_id]]=1
+
+    return dictionary
+    

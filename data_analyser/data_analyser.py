@@ -24,10 +24,51 @@ def start_module():
     Returns:
         None
     """
+    
 
-    # your code
+    common.clear()
+    special_functions=["Latest buyer name",
+    "Last buyer ID",
+    "The buyer name spent most and the money spent",
+    "Get the buyer id spent most and the money spent",
+    "Get the most frequent buyers names",
+    "Get the most frequent buyers ids"]
 
-    pass
+    table=data_manager.get_table_from_file("data_analyser/data_analyser.csv")
+    ui.print_menu("Data Analyser MENU",special_functions,"go back to Main Menu.")
+    choice=ui.get_inputs(" ","What's your choice?")
+    choice=common.check_one_input_for_number(choice," ","What's your choice?")
+    
+    '''while choice!=0:
+        if choice==1:  
+            
+
+        elif choice==2: 
+            
+
+        elif choice==3: 
+            
+
+        elif choice==4:
+            
+
+        elif choice==5: 
+            
+
+        elif choice==6: 
+            
+
+        else:
+            raise ValueError
+    '''
+        
+    ui.print_menu("Data Analyser MENU",special_functions,"go back to Main Menu.")
+    choice=ui.get_inputs(" ","What's your choice?")
+    choice=common.check_one_input_for_number(choice," ","What's your choice?")
+    common.clear()
+
+    common.clear()
+
 
 
 def get_the_last_buyer_name():
@@ -38,7 +79,6 @@ def get_the_last_buyer_name():
         str: Customer name of the last buyer
     """
 
-    # your code
 
 
 def get_the_last_buyer_id():
