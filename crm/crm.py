@@ -300,3 +300,12 @@ def get_name_by_id_from_table(table, id):
     for row in range(len(table)):
         if table[row][id_index]==id:
             return table[row][name]
+
+def get_all_ids():
+    customer_id = 0
+    table=data_manager.get_table_from_file("crm/customers_test.csv")
+    list_of_ids = []
+    for i in range(len(table)):
+        list_of_ids.append(table[i][customer_id])
+
+    return list_of_ids
