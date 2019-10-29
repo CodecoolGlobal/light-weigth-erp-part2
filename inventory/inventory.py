@@ -71,7 +71,7 @@ def start_module():
             ui.print_result(result,"The average durability times for each manufaturer is:")
 
         else:
-            raise ValueError
+            ui.print_error_message("Wrong input!")
         
         ui.print_menu("Inventory Manager MENU",special_functions,"go back to Main Menu.")
         choice=ui.get_inputs(" ","What's your choice?")

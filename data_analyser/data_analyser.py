@@ -30,42 +30,42 @@ def start_module():
     special_functions=["Latest buyer name",
     "Last buyer ID",
     "The buyer name spent most and the money spent",
-    "Get the buyer id spent most and the money spent",
+    "Get the buyer ID spent most and the money spent",
     "Get the most frequent buyers names",
-    "Get the most frequent buyers ids"]
+    "Get the most frequent buyers IDs"]
 
-    table=data_manager.get_table_from_file("data_analyser/data_analyser.csv")
+   
     ui.print_menu("Data Analyser MENU",special_functions,"go back to Main Menu.")
     choice=ui.get_inputs(" ","What's your choice?")
     choice=common.check_one_input_for_number(choice," ","What's your choice?")
     
-    '''while choice!=0:
+    while choice!=0:
         if choice==1:  
-            
+            ui.print_result(get_the_last_buyer_name(),"The latest buyer name: ")
 
         elif choice==2: 
-            
+            ui.print_result(get_the_last_buyer_id(),"Last buyer's ID: ")
 
         elif choice==3: 
-            
+            ui.print_result(get_the_buyer_name_spent_most_and_the_money_spent(),"The buyer name is: ")
 
         elif choice==4:
-            
+            ui.print_result(get_the_buyer_id_spent_most_and_the_money_spent(),"The buyer's ID is: ")
 
         elif choice==5: 
-            
+            ui.print_result(get_the_most_frequent_buyers_names(),"The most frequent buyers names: ")
 
         elif choice==6: 
-            
+            ui.print_result(get_the_most_frequent_buyers_ids(),"The most frequent buyers IDs: ")
 
         else:
-            raise ValueError
-    '''
+            ui.print_error_message("Wrong input!")
+
         
-    ui.print_menu("Data Analyser MENU",special_functions,"go back to Main Menu.")
-    choice=ui.get_inputs(" ","What's your choice?")
-    choice=common.check_one_input_for_number(choice," ","What's your choice?")
-    common.clear()
+        ui.print_menu("Data Analyser MENU",special_functions,"go back to Main Menu.")
+        choice=ui.get_inputs(" ","What's your choice?")
+        choice=common.check_one_input_for_number(choice," ","What's your choice?")
+        common.clear()
 
     common.clear()
 

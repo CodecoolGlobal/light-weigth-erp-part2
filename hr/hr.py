@@ -70,7 +70,7 @@ def start_module():
             ui.print_result(result,"The person closest to average is:")
 
         else:
-            raise ValueError
+            ui.print_error_message("Wrong input!")
 
         ui.print_menu("Human Resources Manager MENU",special_functions,"go back to Main Menu.")
         choice=ui.get_inputs(" ","What's your choice?")

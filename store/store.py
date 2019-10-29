@@ -70,7 +70,7 @@ def start_module():
             ui.print_result(get_average_by_manufacturer(table,manufacturer),"The average amount of games in stock of a given manufacturer is:")
 
         else:
-            raise ValueError
+            ui.print_error_message("Wrong input!")
 
         ui.print_menu("Store Manager MENU",special_functions,"go back to Main Menu.")
         choice=ui.get_inputs(" ","What's your choice?")

@@ -69,7 +69,7 @@ def start_module():
             ui.print_result(result,"These customers have subscribed to the news letter:")
 
         else:
-            raise ValueError
+            ui.print_error_message("Wrong input!")
 
         ui.print_menu("Customer Relationship Management MENU",special_functions,"go back to Main Menu.")
         choice=ui.get_inputs(" ","What's your choice?")

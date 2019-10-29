@@ -142,7 +142,7 @@ def start_module():
             ui.print_result(result,"These items are sold between the given dates:")
 
         else:
-            raise ValueError
+            ui.print_error_message("Wrong input!")
 
         ui.print_menu("Sales Manager MENU",special_functions,"")
         choice=ui.get_inputs(" ","What's your choice?")
