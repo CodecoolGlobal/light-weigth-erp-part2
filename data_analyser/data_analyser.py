@@ -32,7 +32,8 @@ def start_module():
     "The buyer name spent most and the money spent",
     "Get the buyer ID spent most and the money spent",
     "Get the most frequent buyers names",
-    "Get the most frequent buyers IDs"]
+    "Get the most frequent buyers IDs",
+    "Get customer without purchase"]
 
    
     ui.print_menu("Data Analyser MENU",special_functions,"go back to Main Menu.")
@@ -57,6 +58,9 @@ def start_module():
 
         elif choice==6: 
             ui.print_result(get_the_most_frequent_buyers_ids(),"The most frequent buyers IDs: ")
+
+        elif choice==7:
+            ui.print_result(customer_without_purchase(),"The customers: ")
 
         else:
             ui.print_error_message("Wrong input!")
@@ -193,9 +197,10 @@ def get_the_most_frequent_buyers_ids(num=1):
 
 def customer_without_purchase():
     all_customers = crm.get_all_ids()
-    customers_with_purchase = sales.get_all_customer_ids()
+    
+    customers_with_purchase =list(sales.get_all_customer_ids())
 
-    for i in customer_without_purchase:
+    for i in customers_with_purchase:
         all_customers.remove(i)
     result_list = []
     for i in range(len(all_customers)):
