@@ -190,3 +190,15 @@ def get_the_most_frequent_buyers_ids(num=1):
         tmp.remove(maximum)
         if len(tmp_ordered) == num:
             return(tmp_ordered)
+
+def customer_without_purchase():
+    all_customers = crm.get_all_ids()
+    customers_with_purchase = sales.get_all_customer_ids()
+
+    for i in customer_without_purchase:
+        all_customers.remove(i)
+    result_list = []
+    for i in range(len(all_customers)):
+        result_list.append(crm.get_name_by_id(all_customers[i]))
+
+    return result_list
